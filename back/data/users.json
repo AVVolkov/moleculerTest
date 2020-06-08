@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Andrey",
+    "email": "94.volkov.94@gmail.com",
+    "results": [
+      1111,
+      1112
+    ],
+    "minTime": 1111
+  },
+  {
+    "name": "Victor",
+    "email": "94.volkov.94@gmail.com",
+    "results": [
+      1113,
+      1114
+    ],
+    "minTime": 1113
+  },
+  {
+    "name": "George",
+    "email": "94.volkov.94@gmail.com",
+    "results": [
+      1115,
+      1111
+    ],
+    "minTime": 1111
+  },
+  {
+    "name": "Alex",
+    "email": "94.volkov.94@gmail.com",
+    "results": [],
+    "minTime": null
+  }
+]
