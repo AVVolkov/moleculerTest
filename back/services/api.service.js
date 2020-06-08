@@ -13,7 +13,7 @@ module.exports = {
 	mixins: [ApiGateway],
 
 	settings: {
-		port: process.env.PORT || 3001,
+		port: process.env.PORT || 3002,
 		ip: "0.0.0.0",
 		// Global Express middlewares. More info: https://moleculer.services/docs/0.14/moleculer-web.html#Middlewares
 		use: [],
