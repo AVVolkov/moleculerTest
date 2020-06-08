@@ -19,73 +19,69 @@ const baseStructure = {
   totalPages: 1,
 };
 const baseAlert = { show: false, type: 'warning', text: '' };
+const baseUpdRows = { need: false, data: {} };
 
 function App() {
   const [users, setUsers] = useState(baseStructure);
   const [top, setTop] = useState(baseStructure);
   const [alert, setAlert] = useState(baseAlert);
 
+  const [updRows, setUpdRows] = useState(baseUpdRows);
+
   async function makeRequest(path, param) {
-    const { data } = await axios.get(path, {
-      params: {
-        page: param.page,
-        pageSize: param.pageSize,
-      },
-    });
-    return data;
+    try {
+      const { data } = await axios.get(path, {
+        params: {
+          page: param.page,
+          pageSize: param.pageSize,
+        },
+      });
+      return data;
+    } catch (err) {
+      setAlert({
+        show: true,
+        type: 'danger',
+        text: 'Что-то пошло не так... Невозможно получить данные.',
+      });
+    }
   }
 
   async function updateUsers(data = {}) {
-    try {
-      const res = await makeRequest('api/v1/users', { ...{}, ...users, ...data });
-      setUsers(res);
-    } catch (err) {
-      setAlert({
-        show: true,
-        type: 'danger',
-        text: 'Что-то пошло не так... Невозможно получить данные.',
-      });
-    }
+    const res = await makeRequest('api/v1/users', { ...{}, ...users, ...data });
+    setUsers(res);
   }
 
   async function updateTop(data = {}) {
-    try {
-      const res = await makeRequest('api/v1/users/top', { ...{}, ...top, ...data });
-      // setTop((top) => ({ ...top, ...res }));
-      setTop(res);
-    } catch (err) {
-      setAlert({
-        show: true,
-        type: 'danger',
-        text: 'Что-то пошло не так... Невозможно получить данные.',
-      });
-    }
+    const res = await makeRequest('api/v1/users/top', { ...{}, ...top, ...data });
+    setTop(res);
   }
 
-  // function checkResults(data, eventData, setter) {
-  //   const newRows = data.rows.map((item) => {
-  //     if (item._id === eventData.id) {
-  //       return Object.assign(item, { minTime: eventData.minTime });
-  //     }
-  //     return item;
-  //   });
-  //   setter(dataObject.assign({}, data, { rows: newRows }));
-  // }
+  function checkResults(data, eventData, setter) {
+    const newRows = data.rows.map((item) => {
+      if (item._id === eventData.id) {
+        return Object.assign(item, { minTime: eventData.minTime });
+      }
+      return item;
+    });
+    setter({ ...data, ...{ rows: newRows } });
+  }
+
+  useEffect(() => {
+    if (updRows.need === true) {
+      checkResults(top, updRows.data, setTop);
+      checkResults(users, updRows.data, setUsers);
+      setUpdRows(baseUpdRows);
+    }
+  }, [updRows])
 
   useEffect(() => {
     const socket = socketIOClient();
-    // socket.on('connect', (data) => {
-    //   console.log('connected', data);
-    // });
 
     updateUsers();
     updateTop();
 
-    socket.on('user.update', () => {
-      // checkResults(top, data, setTop);
-      // checkResults(users, data, setUsers);
-      updateUsers();
-      updateTop();
+    socket.on('user.update', (data) => {
+      setUpdRows({need: true, data})
     });
 
     socket.on('user.create', () => {
