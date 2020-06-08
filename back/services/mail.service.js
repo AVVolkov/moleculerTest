@@ -9,7 +9,7 @@ module.exports = {
 	settings: {
 		$secureSettings: ["transport.auth.user", "transport.auth.pass"],
 
-		from: process.env.EMAIL_FROM || "st3p.volkov@yandex.ru",
+		from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
 		transport: {
 			port: process.env.EMAIL_PORT || 465,
 			host: process.env.EMAIL_HOST || "smtp.yandex.ru",

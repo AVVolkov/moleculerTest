@@ -99,7 +99,7 @@ function App() {
     <div>
       <Container>
         <Row>
-          <Col xs={12} md={12}>
+          <Col xs={12} md={12} className="text-center">
             <Jumbotron>
               <h1>Добро пожаловать на страничку нашего бассейна</h1>
             </Jumbotron>
@@ -137,8 +137,16 @@ function App() {
           </Col>
         </Row>
         <Row>
-          <Col xs={12} md={12}>
-            <NewUser />
+          <Col xs={12} md={12} className="text-center">
+            <Jumbotron>
+              <h1>Приветсвуем Вас</h1>
+              <p>
+                Если Вас еще нет в нашем списке, то просто нажмите на кнопку ниже и заполните данные.
+              </p>
+              <p>
+                <NewUser />
+              </p>
+            </Jumbotron>
           </Col>
         </Row>
       </Container>
