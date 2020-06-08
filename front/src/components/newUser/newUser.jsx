@@ -16,6 +16,7 @@ function NewResult() {
     setShow(true);
   }
 
+  // TODO: Refactor block of "catch", remove "alert" and add error handler
   async function sendResult(e) {
     e.preventDefault();
     try {
@@ -25,7 +26,7 @@ function NewResult() {
         result: Number(result),
       });
     } catch (err) {
-      alert('Something went wrong.'); // @TODO заменить
+      alert('Something went wrong.');
     }
     handleClose();
   }

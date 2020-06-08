@@ -73,7 +73,7 @@ module.exports = {
 				const rows = await this.adapter.find({
 					offset: ctx.params.pageSize * ctx.params.page - ctx.params.pageSize,
 					limit: ctx.params.pageSize,
-					sort: [ "minTime" ],
+					sort: ["minTime"],
 					query
 				});
 				const count = await this.adapter.count({ query });
@@ -115,7 +115,7 @@ module.exports = {
 				const json = await this.transformDocuments(ctx, ctx.params, doc);
 				await this.entityChanged("created", json, ctx);
 
-				ctx.call("api.emitSocket", {event: "user.create"});
+				ctx.call("api.emitSocket", { event: "user.create" });
 				return json;
 			}
 		},
@@ -133,13 +133,14 @@ module.exports = {
 				}
 				let top = await this.adapter.find({
 					limit: 1,
-					sort: [ "minTime" ],
+					sort: ["minTime"],
 					query: { minTime: { $ne: null } }
 				});
 				top = top && top.length > 0 ? top[0] : null;
 
 				let minTime = ctx.params.result;
-				doc.results.forEach(item => { //@TODO переделать
+				// TODO: Do refactoring
+				doc.results.forEach(item => {
 					if (item < minTime) {
 						minTime = item;
 					}
@@ -165,7 +166,7 @@ module.exports = {
 				}
 
 				if (minTime === ctx.params.result) {
-					ctx.call("api.emitSocket", {event: "user.update", data: {id: json._id, minTime}});
+					ctx.call("api.emitSocket", { event: "user.update", data: { id: json._id, minTime } });
 				}
 
 				return json;

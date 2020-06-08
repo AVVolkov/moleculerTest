@@ -43,17 +43,22 @@ function App() {
         type: 'danger',
         text: 'Что-то пошло не так... Невозможно получить данные.',
       });
+      return null;
     }
   }
 
   async function updateUsers(data = {}) {
     const res = await makeRequest('api/v1/users', { ...{}, ...users, ...data });
-    setUsers(res);
+    if (res !== null) {
+      setUsers(res);
+    }
   }
 
   async function updateTop(data = {}) {
     const res = await makeRequest('api/v1/users/top', { ...{}, ...top, ...data });
-    setTop(res);
+    if (res !== null) {
+      setTop(res);
+    }
   }
 
   function checkResults(data, eventData, setter) {

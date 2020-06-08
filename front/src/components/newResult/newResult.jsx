@@ -14,6 +14,7 @@ function NewResult(props) {
     setShow(true);
   }
 
+  // TODO: Refactor block of "catch", remove "alert" and add error handler
   async function sendResult(e) {
     e.preventDefault();
     try {
@@ -21,7 +22,7 @@ function NewResult(props) {
         result: Number(result),
       });
     } catch (err) {
-      alert('Something went wrong.'); // @TODO заменить
+      alert('Something went wrong.');
     }
     handleClose();
   }
@@ -29,7 +30,7 @@ function NewResult(props) {
   function changeResult(e) {
     setResult(e.target.value);
   }
-
+  // TODO: Fix warning about findDOMMode
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
