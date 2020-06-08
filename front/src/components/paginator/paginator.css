@@ -1,0 +1,11 @@
+.pagination li {
+  padding: 3px;
+}
+
+.pagination .active {
+  color: blue;
+}
+
+.pagination .disabled {
+  color: grey;
+}
