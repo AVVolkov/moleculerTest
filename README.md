@@ -22,8 +22,8 @@
 
 #### Запуск front без docker
 - Перейти в директорию **front** и выполнить следующие команды (так же проверить proxy в package.json, который должен указывать на сервер):
-		npm install
-		npm run start
+		npm install / yarn
+		npm run start / yarn start
 - Открыть в браузере страницу http://localhost:3000/
 
 
